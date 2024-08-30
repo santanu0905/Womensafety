@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women Safety Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <h1>Women Safety Analytics</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="volunteer.html">Volunteer Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="banner">
+            <h2>Protecting Women from Safety Threats</h2>
+            <p>Using advanced analytics and real-time monitoring to create safer environments for women.</p>
+            <a href="login.html" class="btn">Login</a>
+            <a href="volunteer.html" class="btn">Volunteer Login</a>
+        </section>
+    </main>
+    
+    <section class="map-container">
+        <h2>Hotspot Locations</h2>
+        <div id="map"></div>
+    </section>
+
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How does the platform work?</h3>
+            <p>The platform uses advanced analytics to monitor and respond to safety threats, providing real-time alerts and support.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How can I become a volunteer?</h3>
+            <p>You can sign up as a volunteer through our Volunteer Login page. We welcome individuals who are passionate about making a difference.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What data is collected?</h3>
+            <p>We collect data related to safety incidents and user interactions to enhance the platform's effectiveness and provide better safety solutions.</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 Women Safety Analytics. All rights reserved.</p>
+        <p>Contact: info@womensafetyanalytics.com</p>
+    </footer>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([20.3403489, 85.8077538], 14);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        L.marker([20.3403489, 85.8077538]).addTo(map)
+            .bindPopup('Hotspot Location')
+            .openPopup();
+    </script>
+</body>
+</html>
+

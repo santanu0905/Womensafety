@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Login</title>
+    <link rel="stylesheet" href="volunteer_style.css">
+</head>
+<body>
+    <header>
+        <h1>Women Safety Analytics - Volunteer Login</h1>
+    </header>
+    
+    <main>
+        <section class="login-form">
+            <h2>Volunteer Login</h2>
+            <form action="/volunteer-login" method="POST">
+                <label for="volunteer-username">Username or Email:</label>
+                <input type="text" id="volunteer-username" name="username" required>
+                
+                <label for="volunteer-password">Password:</label>
+                <input type="password" id="volunteer-password" name="password" required>
+                
+                <button type="submit">Login</button>
+                <p><a href="#">Forgot Password?</a></p>
+                <p>Not a volunteer? <a href="volun_reg.html">Register Here</a></p>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Women Safety Analytics. All rights reserved.</p>
+    </footer>
+</body>
+</html>
