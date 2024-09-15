@@ -31,5 +31,29 @@
     <footer>
         <p>&copy; 2024 Women Safety Analytics. All rights reserved.</p>
     </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            fetch('http://localhost:3000/user-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.token) {
+                    alert('Login successful!');
+                    // You might want to redirect the user or save the token for future use
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => alert('Error:', error));
+        });
+    </script>
 </body>
 </html>

@@ -81,6 +81,54 @@
         <section class="map-container">
             <h2>Hotspot Locations</h2>
             <div id="map"></div>
+            <div id="alert-box" class="alert-box"></div>
+        </section>
+        <!-- <section class="safety-products">
+            <h2>Safety Products</h2>
+            <div class="product-item">
+                <h3>Personal Safety Alarm</h3>
+                <p>A compact alarm that can be used to alert others in case of emergency.</p>
+                <a href="https://www.amazon.com/s?k=safety+alarm" target="_blank">View Product</a>
+            </div>
+            <div class="product-item">
+                <h3>Self-Defense Spray</h3>
+                <p>Carry this self-defense spray for added protection against potential threats.</p>
+                <a href="https://www.amazon.com/s?k=self-defense+spray" target="_blank">View Product</a>
+            </div>
+            <div class="product-item">
+                <h3>Personal Safety App</h3>
+                <p>An app that can send alerts and provide safety information at your fingertips.</p>
+                <a href="https://www.amazon.com/s?k=safety+app" target="_blank">View Product</a>
+            </div>
+            <p>For more safety products, visit <a href="https://www.amazon.com/s?k=safety+products" target="_blank">Amazon Safety Products</a>.</p>
+        </section> -->
+        <section class="safety-products">
+            <h2>Safety Products</h2>
+            <div class="product-item">
+                <img src="https://m.media-amazon.com/images/I/71NR3lsMSGL.jpg" alt="Personal Safety Alarm" class="product-image">
+                <div class="product-details">
+                    <h3>Personal Safety Alarm</h3>
+                    <p>A compact alarm that can be used to alert others in case of emergency.</p>
+                    <a href="https://www.amazon.in/s?k=personal+safety+alarm" target="_blank" class="view-product-button">View Product</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://m.media-amazon.com/images/I/41SgwPpNsCL.jpg" alt="Self-Defense Spray" class="product-image">
+                <div class="product-details">
+                    <h3>Self-Defense Spray</h3>
+                    <p>Carry this self-defense spray for added protection against potential threats.</p>
+                    <a href="https://www.amazon.in/s?k=self+defense+spray" target="_blank" class="view-product-button">View Product</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://jessieonajourney.com/wp-content/uploads/2015/12/Emergency-App-Sunrise.jpg" alt="Personal Safety App" class="product-image">
+                <div class="product-details">
+                    <h3>Personal Safety App</h3>
+                    <p>An app that can send alerts and provide safety information at your fingertips.</p>
+                    <a href="https://www.amazon.in/s?k=safety+app" target="_blank" class="view-product-button">View Product</a>
+                </div>
+            </div>
+            <p>For more safety products, visit <a href="https://www.amazon.com/s?k=safety+products" target="_blank" class="amazon-link">Amazon Safety Products</a>.</p>
         </section>
         
         <section class="faq">
@@ -99,25 +147,6 @@
             </div>
         </section>
         
-        <section class="safety-products">
-            <h2>Safety Products</h2>
-            <div class="product-item">
-                <h3>Personal Safety Alarm</h3>
-                <p>A compact alarm that can be used to alert others in case of emergency.</p>
-                <a href="https://www.amazon.com/s?k=safety+alarm" target="_blank">View Product</a>
-            </div>
-            <div class="product-item">
-                <h3>Self-Defense Spray</h3>
-                <p>Carry this self-defense spray for added protection against potential threats.</p>
-                <a href="https://www.amazon.com/s?k=self-defense+spray" target="_blank">View Product</a>
-            </div>
-            <div class="product-item">
-                <h3>Personal Safety App</h3>
-                <p>An app that can send alerts and provide safety information at your fingertips.</p>
-                <a href="https://www.amazon.com/s?k=safety+app" target="_blank">View Product</a>
-            </div>
-            <p>For more safety products, visit <a href="https://www.amazon.com/s?k=safety+products" target="_blank">Amazon Safety Products</a>.</p>
-        </section>
     </main>
     
     <footer>
@@ -125,22 +154,28 @@
         <p>Contact: info@womensafetyanalytics.com</p>
     </footer>
     
+    <!-- Map and Alert System Scripts -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
+        // Initialize the map
         var map = L.map('map').setView([20.347997, 85.804457], 14);
 
+        // Load the map tiles from OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
+        // Define hotspot locations
         var redZones = [
             { lat: 20.347997, lng: 85.804457, radius: 120 },
             { lat: 20.3436563, lng: 85.8034403, radius: 120 },
             { lat: 20.339621, lng: 85.8067146, radius: 120 },
             { lat: 20.3433443, lng: 85.8082124, radius: 120 },
-            { lat: 20.348478, lng: 85.8054324, radius: 120 }
+            { lat: 20.348478, lng: 85.8054324, radius: 120 },
+            {lat:20.3926469,lng:85.8239702,radius:120}
         ];
 
+        // Add hotspot locations (red zones) to the map
         redZones.forEach(function(zone) {
             L.circle([zone.lat, zone.lng], {
                 color: 'red',
@@ -154,6 +189,7 @@
                 .openPopup();
         });
 
+        // Function to show a toast notification
         function showToast(message) {
             var toast = document.createElement('div');
             toast.className = 'toast show';
@@ -164,23 +200,24 @@
             }, 4000);
         }
 
+        // Track user's location
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(function(position) {
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
 
-                L.marker([lat, lng]).addTo(map);
+                // Add the user's marker to the map
+                L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Your location')
+                    .openPopup();
 
-                fetch('http://localhost:3000/update-location', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ lat, lng })
-                })
-                .then(response => response.json())
-                .then(data => showToast(data.message))
-                .catch(error => console.error('Error:', error));
+                // Check if user is inside any red zone
+                redZones.forEach(function(zone) {
+                    var distance = map.distance([lat, lng], [zone.lat, zone.lng]);
+                    if (distance < zone.radius) {
+                        showToast('Alert: You are in a Red Zone!');
+                    }
+                });
             });
         } else {
             showToast('Geolocation is not supported by this browser.');
@@ -189,3 +226,4 @@
 
 </body>
 </html>
+
